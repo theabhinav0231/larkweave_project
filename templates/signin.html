@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - Archive Mosaic</title>
+  <script src="https://kit.fontawesome.com/d52bfcc17d.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="/static/javascript/signin.js" defer></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f7f7;
+    }
+    .container {
+      max-width: 450px;
+      margin: 100px auto;
+      padding: 30px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .container h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #333;
+    }
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .input-group input {
+      width: 90%;
+      padding: 15px 15px 15px 40px; 
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    .input-group i {
+      position: absolute;
+      top: 60%; 
+      left: 10px;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #888;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      background-color: #007BFF;
+      color: white;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .forgot-password {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .forgot-password button {
+      background: none;
+      color: blue;
+      text-decoration: underline;
+      border: none;
+      cursor: pointer;
+    }
+    .forgot-password button:hover {
+      color: darkblue;
+    }
+    .signup-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .signup-link a {
+      color: blue;
+      text-decoration: none;
+    }
+
+    /* Hidden input for password reset */
+    .reset-password-container {
+      display: none;  /* Hidden by default */
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .reset-password-container input {
+      width: 80%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Sign In</h2>
+
+    <!-- Email -->
+    <form autocomplete="off">
+      <div class="input-group">
+        <label for="email">Email Address:</label>
+        <i class="fas fa-user"></i>
+        <input type="text" id="email" name="email" placeholder="Enter your email address" required>
+      </div>
+    
+      <!-- Password -->
+      <div class="input-group">
+        <label for="password">Password:</label>
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+    
+      <button type="submit" id="submitsignin">Sign In</button>
+    </form>
+    
+    <!-- Forgot Password Button -->
+    <div class="forgot-password">
+      <button id="reset-password-btn">Forgot Password?</button>
+    </div>
+
+    <!-- Password reset input (hidden by default) -->
+    <div class="reset-password-container" id="reset-password-container">
+      <label for="reset-email"></label>
+      <!-- Use the email already entered in the sign-in form -->
+      <input type="email" id="reset-email" placeholder="Email address" required readonly>
+      <br>
+    </div>
+
+    <!-- Sign Up Link -->
+    <div class="signup-link">
+      <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
+  </div>
+
+</body>
+</html>

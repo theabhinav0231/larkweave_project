@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Archive Mosaic</title>
+  <script src="https://kit.fontawesome.com/d52bfcc17d.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="/static/javascript/signup.js" defer></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 600px;
+      margin: 100px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+    }
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 95%;
+      padding: 15px;
+      margin: 10px 0;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      background-color: #007BFF;
+      color: white;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .login-link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1rem;
+    }
+    .login-link a {
+      color: blue;
+      text-decoration: none;
+    }
+
+    .role-selection-horizontal {
+  display: flex;
+  gap: 30px; /* spacing between Mentor and Learner */
+  margin: 10px 0 20px;
+  align-items: center;
+}
+
+.role-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.role-option input[type="radio"] {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Create an Account</h2>
+    <form action="#">
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" placeholder="Enter Your Full Name" required>
+    
+        <!-- Email Address -->
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" placeholder="Enter Your Email Address" required>
+    
+        <!-- Password -->
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter Your Password" required>
+    
+        <!-- Role Selection -->
+        <label>Sign up as:</label>
+        <div class="role-selection-horizontal">
+          <label class="role-option">
+            <input type="radio" name="role" value="mentor" required>
+            Mentor
+          </label>
+          <label class="role-option">
+            <input type="radio" name="role" value="learner">
+            Learner
+          </label>
+        </div>
+        
+        
+
+      <button type="submit" id="submitsignup">Sign Up</button>
+    </form>
+    <div class="login-link">
+      <p>Already have an account? <a href="/signin">Sign In</a></p>
+    </div>
+  </div>
+
+</body>
+</html>

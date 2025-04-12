@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Larkweave</title>
+  <script src="https://kit.fontawesome.com/d52bfcc17d.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --primary-color: #1d3557;
+  --secondary-color: #457b9d;
+  --accent: #a8dadc;
+  --text-color: #333;
+  --bg-light: #f4f4f4;
+  --bg-white: #ffffff;
+  --nav-bg: rgba(0, 0, 0, 0.5);
+  --nav-hover: rgba(255, 255, 255, 0.15);
+  --nav-font: 'Playfair Display', serif;
+  --card-highlight: #e0f2f7; /* Example highlight color */
+  --highlight-border: #0077cc; /* Example highlight border color */
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-color);
+}
+
+/* Beautiful NavBar */
+nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: 1rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--nav-bg);
+  backdrop-filter: blur(8px);
+}
+
+nav .logo {
+  font-family: var(--nav-font);
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+nav .nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  font-weight: 500;
+}
+
+nav a:hover {
+  background-color: var(--nav-hover);
+}
+
+
+.picture {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+img.hero-image { /* Specific class for hero image if needed */
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    filter: brightness(60%);
+}
+
+.heading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 4rem;
+    text-align: center;
+    font-family: 'Verdana', cursive; /* Consider Playfair Display or Dancing Script from imports */
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.heading h1 { /* Style h1 inside .heading if needed */
+    margin: 0; /* Remove default margin */
+}
+
+section {
+    padding: 80px 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+h2 {
+    font-size: 2.75rem;
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 50px; /* Increased default margin */
+}
+
+/* --- NEW About Us Section Styling --- */
+#aboutus {
+    background-color: var(--bg-white); /* White background */
+}
+
+#aboutus .container {
+    max-width: 950px; /* Slightly narrower for better readability */
+}
+
+#aboutus .about-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Space between paragraphs */
+}
+
+#aboutus .about-grid p {
+    background-color: var(--bg-light); /* Light background for the text blocks */
+    padding: 30px; /* More padding */
+    border-radius: 8px;
+    border-left: 6px solid var(--secondary-color); /* Accent border */
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06); /* Softer shadow */
+}
+
+#aboutus .about-grid p b {
+    color: var(--primary-color); /* Make bold text stand out */
+    font-weight: 700; /* Ensure it's bold */
+}
+/* --- END NEW About Us Section Styling --- */
+
+/* --- NEW How It Works Section Styling --- */
+.how-it-works {
+    background-color: var(--bg-light); /* Use the light background */
+    border-top: 1px solid #e0e0e0;
+}
+
+.how-it-works .container {
+    max-width: 900px; /* Keep container focused */
+}
+
+/* Style for the introductory paragraph */
+.how-it-works .intro-text {
+    text-align: center;
+    font-size: 1.15rem;
+    color: #555;
+    margin-bottom: 45px;
+    line-height: 1.6;
+}
+
+.how-it-works .steps-list {
+    list-style: none;
+    padding-left: 0;
+    counter-reset: step-counter;
+    max-width: 750px; /* Center the list slightly */
+    margin: 0 auto; /* Center the list block */
+}
+
+.how-it-works .steps-list li {
+    background-color: var(--bg-white);
+    border-radius: 10px;
+    padding: 25px 30px;
+    margin-bottom: 25px; /* More space between steps */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+    padding-left: 75px; /* More space for the counter */
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: var(--text-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.how-it-works .steps-list li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Style the counter */
+.how-it-works .steps-list li::before {
+    counter-increment: step-counter;
+    content: counter(step-counter);
+    position: absolute;
+    left: 20px; /* Position counter */
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--secondary-color);
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+    width: 40px; /* Slightly larger counter */
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 40px;
+}
+
+/* Style for the concluding sentence */
+.how-it-works .conclusion-text {
+    text-align: center;
+    font-size: 1.2rem; /* Make it slightly more prominent */
+    color: var(--primary-color);
+    margin-top: 50px;
+    font-weight: 500;
+}
+/* --- END NEW How It Works Section Styling --- */
+
+/* Documentation Section Styling */
+.documentation {
+    background-color: var(--bg-white); /* Keep consistent background */
+}
+
+.documentation .container {
+    max-width: 1000px; /* Slightly wider for docs */
+}
+
+.documentation h2 {
+    color: var(--primary-color);
+}
+
+.documentation > .container > p { /* Style the intro paragraph */
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 1.15rem;
+    color: #555;
+}
+
+.documentation h3 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+}
+
+.documentation .accordion {
+  background-color: #eef2ff; /* Lighter blue */
+  border: none;
+  border-left: 5px solid var(--secondary-color); /* Accent border */
+  border-radius: 8px;
+  padding: 18px 25px;
+  margin: 10px 0; /* Adjusted margin */
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  font-size: 1.2rem; /* Larger accordion title */
+  font-weight: 500;
+  color: var(--primary-color);
+  width: 100%; /* Ensure full width */
+  text-align: left; /* Align text left */
+}
+
+.documentation .accordion:hover,
+.documentation .accordion.active { /* Style active state */
+  background-color: #e0e7ff; /* Slightly darker on hover/active */
+  border-left-color: var(--primary-color); /* Change border color */
+}
+
+.documentation .accordion-content {
+  display: none; /* Hidden by default */
+  padding: 20px 25px;
+  margin-bottom: 10px;
+  background-color: #fafbff; /* Very light background for content */
+  border: 1px solid #e0e7ff; /* Subtle border */
+  border-top: none; /* Remove top border */
+  border-radius: 0 0 8px 8px; /* Match accordion radius */
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.documentation .accordion-content p,
+.documentation .accordion-content ul {
+    margin-bottom: 15px; /* Space below paragraphs and lists */
+}
+.documentation .accordion-content ul {
+    padding-left: 20px; /* Indent lists */
+}
+.documentation .accordion-content li {
+    margin-bottom: 8px; /* Space between list items */
+}
+.documentation .accordion-content strong {
+    color: var(--secondary-color); /* Highlight important terms */
+}
+
+
+.documentation .accordion.active + .accordion-content {
+  display: block; /* Show content when active */
+}
+
+
+/* Footer Styling */
+footer {
+    background: #222; /* Darker footer */
+    color: #ccc; /* Lighter text color */
+    padding: 2rem 0; /* More padding */
+    text-align: center;
+    font-size: 0.95rem;
+    margin-top: 50px; /* Ensure space before footer */
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    nav {
+        padding: 1rem 1.5rem; /* Adjust padding */
+        flex-direction: column; /* Stack logo and links */
+        align-items: flex-start;
+    }
+    nav .nav-links {
+        margin-top: 15px;
+        gap: 15px; /* Reduce gap */
+        flex-wrap: wrap; /* Allow links to wrap */
+    }
+    nav a {
+        font-size: 0.95rem;
+        padding: 6px 10px;
+    }
+    .heading {
+        font-size: 2.5rem;
+    }
+    h2 {
+        font-size: 2.2rem;
+    }
+    section {
+        padding: 60px 15px;
+    }
+    .documentation .accordion {
+        font-size: 1.1rem;
+        padding: 15px 20px;
+    }
+    .how-it-works .steps-list li {
+        padding: 20px 25px;
+        padding-left: 65px; /* Adjust padding for smaller screens */
+    }
+    .how-it-works .steps-list li::before {
+        left: 15px; /* Adjust counter position */
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+        line-height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading {
+        font-size: 2rem;
+    }
+    nav .logo {
+        font-size: 1.5rem;
+    }
+    nav .nav-links {
+        gap: 10px;
+    }
+    #aboutus .about-grid p {
+        padding: 20px;
+        font-size: 1rem;
+    }
+     .how-it-works .steps-list li {
+        padding: 15px 20px;
+        padding-left: 60px; /* Further adjust */
+        font-size: 1rem;
+    }
+    .how-it-works .steps-list li::before {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+        line-height: 30px;
+    }
+    .documentation h3 {
+        font-size: 1.5rem;
+    }
+    .documentation .accordion {
+        font-size: 1rem;
+    }
+}
+
+  </style>
+</head>
+<body>
+  <div class="main">
+
+<nav>
+  <div class="logo">Larkweave</div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#mentor-guide">Docs</a>
+    <a href="#aboutus">About Us</a>
+    <a href="/signin">Sign In</a>
+  </div>
+</nav>
+
+
+    <div class="picture" id="home">
+      <img class="hero-image" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d36cb79b-b7a8-4288-8248-3e220b7e2db2/djjp05r-5e8d50ed-2fcf-4449-a868-a78c1e638681.jpg/v1/fill/w_1182,h_676,q_70,strp/ysilthariel__the_sacred_tree_of_life_by_kaixero666_djjp05r-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA5OCIsInBhdGgiOiJcL2ZcL2QzNmNiNzliLWI3YTgtNDI4OC04MjQ4LTNlMjIwYjdlMmRiMlwvZGpqcDA1ci01ZThkNTBlZC0yZmNmLTQ0NDktYTg2OC1hNzhjMWU2Mzg2ODEuanBnIiwid2lkdGgiOiI8PTE5MjAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.wIL54CuD-7mKTLAnOz6kFdYmS9iW35vD13Zo6V8e9nA" alt="Cross-Generation Knowledge Transfer Platform" />
+      <div class="heading">
+        <h1>Larkweave</h1>
+      </div>
+    </div>
+
+    <section id="aboutus" class="about-us">
+      <div class="container">
+        <h2>About Us</h2>
+        <div class="about-grid">
+          <p data-aos="fade-up">At <b>Larkweave</b>, we believe that specialized knowledge in trades, crafts, and cultural practices is a living legacy, meant to be shared and celebrated across generations. Founded to address the urgent crisis of disappearing expertise, our platform is a vibrant bridge connecting retiring professionals with the next wave of artisans, learners, and creators.</p>
+          <p data-aos="fade-up" data-aos-delay="100">Our mission is to preserve and transfer the intricate techniques and time-honored traditions that define our world’s diverse crafts—from woodworking to weaving, pottery to storytelling. Using AI-assisted documentation, we capture the wisdom of master artisans through rich video, text, and 3D models, ensuring no detail is lost. Our interactive learning modules make these skills accessible, blending cutting-edge technology with hands-on practice.</p>
+          <p data-aos="fade-up" data-aos-delay="200"><b>Larkweave</b> is a name that carries a vivid and meaningful connection to our Cross-Generation Knowledge Transfer Platform, blending the imagery of a lark—a small, spirited bird known for its joyful song—with the concept of weaving, a craft that symbolizes creation and connection.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How It Works</h2>
+        <p class="intro-text" data-aos="fade-up">
+           Larkweave connects artisans and learners to preserve crafts and trades. Here's how:
+        </p>
+        <ul class="steps-list">
+            <li data-aos="fade-left">Capture Skills: Retiring experts document techniques via AI-assisted video, text, and 3D models.</li>
+            <li data-aos="fade-left" data-aos-delay="50">Learn Easily: Interactive modules blend multimedia for hands-on craft mastery.</li>
+            <li data-aos="fade-left" data-aos-delay="100">Find Mentors: Get matched with artisans for remote, scheduled mentorship.</li>
+            <li data-aos="fade-left" data-aos-delay="150">Track Progress: Upload work samples for feedback and skill verification.</li>
+            <li data-aos="fade-left" data-aos-delay="200">Join Forums: Share ideas and solve challenges in specialized craft communities.</li>
+            <li data-aos="fade-left" data-aos-delay="250">Sell Creations: Showcase projects in our marketplace for handmade goods.</li>
+        </ul>
+        <p class="conclusion-text" data-aos="fade-up" data-aos-delay="300">
+            Start weaving tradition into the future today.
+        </p>
+      </div>
+    </section>
+
+    <section id="mentor-guide" class="documentation">
+      <div class="container">
+        <h2 style="text-align: center; margin-bottom: 20px;">Larkweave Documentation</h2>
+        <p>Empowering Cross-Generational Learning through AI and Mentorship</p>
+
+        <h3 data-aos="fade-right">For Mentors</h3>
+
+        <div class="accordion" data-aos="fade-up">1. Signup</div>
+        <div class="accordion-content">
+          <p>Sign up as a mentor on Larkweave to begin your knowledge-sharing journey.</p>
+        </div>
+
+        <div class="accordion" data-aos="fade-up">2. Mentor Dashboard</div>
+        <div class="accordion-content">
+          <p>Complete your profile by selecting your skillset, availability, and areas of expertise. This helps us match you with suitable learners.</p>
+        </div>
+
+        <div class="accordion" data-aos="fade-up">3. Course Upload</div>
+        <div class="accordion-content">
+          <p>To create a course:</p>
+          <ul>
+            <li>Enter your email and paste the <strong>YouTube link</strong> of your video (ensure the video is public).</li>
+            <li>Our AI pipeline will:
+              <ul>
+                <li>Transcribe the video using <strong>OpenAI Whisper</strong></li>
+                <li>Generate a summary and learning content using <strong>Google Gemma-3-27B-IT</strong></li>
+              </ul>
+            </li>
+            <li>Add multiple modules using the "+ Add Content" button. Each module requires a title and description.</li>
+            <li><strong>Keep videos under 5 minutes</strong> to avoid long processing times.</li>
+            <li>Upload final product images to generate a 3D model via <strong>Dream Gaussian</strong>.</li>
+          </ul>
+          <p>All data is stored securely in <strong>Firestore</strong>.</p>
+        </div>
+
+        <div class="accordion" data-aos="fade-up">4. Forums</div>
+        <div class="accordion-content">
+          <p>Set a username to participate in community forums. Ask questions, provide answers, or share techniques related to your craft.</p>
+        </div>
+
+        <div class="accordion" data-aos="fade-up">5. Learner Progress</div>
+        <div class="accordion-content">
+          <p>Track learner submissions through your dashboard. Download their uploaded files (images, documents), review their work, and leave constructive feedback or comments.</p>
+        </div>
+
+        <div class="accordion" data-aos="fade-up">6. Marketplace</div>
+        <div class="accordion-content">
+          <p>View a curated gallery showcasing outstanding completed projects by learners who have benefited from your mentorship and courses.</p>
+        </div>
+
+        <h3 data-aos="fade-right">For Learners</h3>
+
+        <div class="accordion" data-aos="fade-up">1. Signup</div>
+        <div class="accordion-content">
+          <p>Sign up as a learner to begin your learning journey with Larkweave. Explore crafts and find mentors.</p>
+        </div>
+
+        <div class="accordion" data-aos="fade-up">2. Learner Dashboard</div>
+        <div class="accordion-content">
+          <p>Complete your profile with your interests, current skill level, and learning availability. Based on this, we’ll suggest suitable mentors and courses. You'll be notified via email upon matching.</p>
+        </div>
+
+        <div class="accordion" data-aos="fade-up">3. Course</div>
+        <div class="accordion-content">
+          <p>Access your enrolled courses. Content includes mentor-provided videos, AI-generated summaries for quick reviews, detailed learning materials, and interactive modules or quizzes.</p>
+        </div>
+
+        <div class="accordion" data-aos="fade-up">4. Forum</div>
+        <div class="accordion-content">
+          <p>Set a username to engage in community forums. Ask questions about techniques, seek advice on challenges, help fellow learners, or share your project ideas and progress.</p>
+        </div>
+
+        <div class="accordion" data-aos="fade-up">5. Progress Upload</div>
+        <div class="accordion-content">
+          <p>As you work through a course, upload your project progress (photos, videos, descriptions). Your assigned mentor can view these uploads, provide comments, and offer guidance to support your learning.</p>
+        </div>
+
+        <div class="accordion" data-aos="fade-up">6. Marketplace</div>
+        <div class="accordion-content">
+          <p>Outstanding final submissions may be selected and featured in the public marketplace gallery, showcasing learner achievements and the quality of mentorship on Larkweave.</p>
+        </div>
+      </div>
+    </section>
+
+
+  </div> <footer>
+  <p>&copy; 2025 Larkweave. All Rights Reserved.</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // Initialize AOS (Animate On Scroll)
+  AOS.init({
+      duration: 800, // Animation duration
+      once: true, // Whether animation should happen only once
+  });
+
+  // Accordion functionality
+  const accordions = document.querySelectorAll(".accordion");
+
+  accordions.forEach(acc => {
+    acc.addEventListener("click", function() {
+      // Toggle active class on the button
+      this.classList.toggle("active");
+
+      // Get the content panel
+      const panel = this.nextElementSibling;
+
+      // Toggle display
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+        // Optional: Close other accordions when one is opened
+        // accordions.forEach(otherAcc => {
+        //   if (otherAcc !== this && otherAcc.classList.contains('active')) {
+        //     otherAcc.classList.remove('active');
+        //     otherAcc.nextElementSibling.style.display = 'none';
+        //   }
+        // });
+      }
+    });
+  });
+
+</script>
+
+</body>
+</html>

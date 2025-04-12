@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Browse Courses</title>
+  <style>
+    body {
+      background: #f9fbfd;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #044284;
+      margin-bottom: 30px;
+    }
+
+    .course {
+      background: #f1f8ff;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .course:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .course h2 {
+      margin-top: 0;
+      margin-bottom: 5px;
+      color: #09680e;
+      font-size: 1.3em;
+    }
+
+    .course p.mentor-email {
+      font-size: 0.9em;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .course-content {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out, opacity 0.3s ease-in 0.2s;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #d0e0ed;
+    }
+
+    .course.expanded .course-content {
+      max-height: 2000px;
+      opacity: 1;
+    }
+
+    .course-content h3 {
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #044284;
+      font-size: 1.1em;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+
+    .course-content p,
+    .course-content div {
+      margin: 8px 0;
+      font-size: 15px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+      background: #000;
+      margin-bottom: 15px;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    #loadingIndicator {
+      text-align: center;
+      padding: 30px;
+      font-size: 1.2em;
+      color: #555;
+      position: relative;
+    }
+
+    #loadingIndicator::after {
+      content: "";
+      display: inline-block;
+      margin-left: 10px;
+      width: 18px;
+      height: 18px;
+      border: 3px solid #aaa;
+      border-top-color: #3498db;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #errorMessage {
+      text-align: center;
+      padding: 20px;
+      color: red;
+      background-color: #ffebee;
+      border: 1px solid red;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .learning-content-display {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .learning-content-display h1,
+    .learning-content-display h2,
+    .learning-content-display h3 {
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+    }
+
+    .learning-content-display ul,
+    .learning-content-display ol {
+      margin-left: 20px;
+    }
+
+    .learning-content-display code {
+      background-color: #f5f5f5;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+
+    .learning-content-display pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Available Courses</h1>
+    <div id="loadingIndicator">Loading courses...</div>
+    <div id="errorMessage"></div>
+    <div id="coursesContainer"></div>
+  </div>
+
+  <script>
+    function getYoutubeVideoId(url) {
+      if (!url) return null;
+      let videoId = null;
+      const patterns = [
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/,
+        /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([^?]+)/,
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([^?]+)/,
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/v\/([^?]+)/
+      ];
+      for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match && match[1]) {
+          videoId = match[1];
+          break;
+        }
+      }
+      if (videoId) {
+        const queryIndex = videoId.indexOf('?');
+        if (queryIndex !== -1) {
+          videoId = videoId.substring(0, queryIndex);
+        }
+        const hashIndex = videoId.indexOf('#');
+        if (hashIndex !== -1) {
+          videoId = videoId.substring(0, hashIndex);
+        }
+      }
+      return videoId;
+    }
+
+    function fetchCourses() {
+      const container = document.getElementById('coursesContainer');
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      const errorMessageDiv = document.getElementById('errorMessage');
+
+      loadingIndicator.style.display = 'block';
+      errorMessageDiv.style.display = 'none';
+      container.innerHTML = '';
+
+      fetch('/get_courses')
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(err => {
+              throw new Error(err.error || `Server error: ${response.status}`);
+            });
+          }
+          return response.json();
+        })
+        .then(data => {
+          loadingIndicator.style.display = 'none';
+
+          if (!data.courses || data.courses.length === 0) {
+            container.innerHTML = '<p>No courses available at the moment.</p>';
+            return;
+          }
+
+          data.courses.forEach(course => {
+            const courseDiv = document.createElement('div');
+            courseDiv.className = 'course';
+            courseDiv.dataset.courseId = course.id;
+
+            const videoId = getYoutubeVideoId(course.youtube_link);
+            const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+
+            courseDiv.innerHTML = `
+              <h2>${course.title || 'Untitled Course'}</h2>
+              <p class="mentor-email">Mentor: ${course.mentor_email || 'N/A'}</p>
+              <div class="course-content">
+                ${embedUrl ? `
+                  <h3>Video</h3>
+                  <div class="video-container">
+                    <iframe src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                ` : '<p>Video link invalid or missing.</p>'}
+
+                ${course.additional_info ? `
+                  <h3>Description</h3>
+                  <p>${course.additional_info}</p>
+                ` : ''}
+
+                ${course.summary && !course.summary.startsWith('[') ? `
+                  <h3>Summary</h3>
+                  <p>${course.summary}</p>
+                ` : ''}
+
+                ${course.learning_content && !course.learning_content.startsWith('[') ? `
+                  <h3>Learning Content</h3>
+                  <div class="learning-content-display">${course.learning_content}</div>
+                ` : '<p>Learning content not yet available.</p>'}
+              </div>
+            `;
+
+            courseDiv.addEventListener('click', function () {
+              document.querySelectorAll('.course.expanded').forEach(otherCourse => {
+                if (otherCourse !== courseDiv) {
+                  otherCourse.classList.remove('expanded');
+                }
+              });
+              this.classList.toggle('expanded');
+            });
+
+            container.appendChild(courseDiv);
+          });
+        })
+        .catch(error => {
+          loadingIndicator.style.display = 'none';
+          console.error('Error fetching courses:', error);
+          errorMessageDiv.textContent = `Error loading courses: ${error.message}. Please try refreshing the page.`;
+          errorMessageDiv.style.display = 'block';
+        });
+    }
+
+    window.onload = fetchCourses;
+  </script>
+</body>
+</html>
