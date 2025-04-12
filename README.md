@@ -8,7 +8,7 @@
 
 **🖥️ Deployed Application Link: https://larkweave.onrender.com**
 
-📽️ Video Walkthrough: Watch here
+**📽️ Video Walkthrough: https://youtu.be/2WxtUeAtpEQ**
 
 
 **Empowering Wisdom. Connecting Generations. Powered by AI.**
