@@ -10,6 +10,9 @@
 
 **📽️ Video Walkthrough: https://youtu.be/2WxtUeAtpEQ**
 
+**We noticed that deployed application link is having issues. We are fixing it. Until that we have uploaded a full scale video of our platform.
+THE FULL SCALE DEMONSTRATION OF OUR PROJECT- https://youtu.be/ILOG7Ej4MLE**
+
 
 **Empowering Wisdom. Connecting Generations. Powered by AI.**
 
