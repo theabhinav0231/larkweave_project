@@ -2,9 +2,7 @@
 
 # 🌐 Larkweave — Cross-Generation Knowledge Transfer Platform
 
-**Problem Statement- Cross-Generation Knowledge Transfer Platform**
-
-✨ Demo
+**✨Problem Statement- Cross-Generation Knowledge Transfer Platform**
 
 **🖥️ Deployed Application Link: https://larkweave.onrender.com**
 
